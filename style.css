@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Oswald", system-ui;
+}
+body {
+  overflow-y: scroll;
+}
+
+/* -----------------------OPEN PAGE -------------------------*/
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100vh; /* Full height of the viewport */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Behind content */
+  background-color: white; /* Set your desired background color */
+}
+
+.large-heading {
+  font-size: 8rem; /* Large size for "YOC" */
+  font-weight: bold;
+  color: #002d72; /* Navy blue from the logo */
+  margin-bottom: -20px;
+  letter-spacing: 20px;
+}
+
+.small-heading {
+  font-size: 5rem; /* Adjust as needed */
+  letter-spacing: 5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #012153; /* Navy blue base color */
+  background: linear-gradient(90deg, #023587 0%, #1d2954 50%, #023587 100%);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: blue-shine 6s ease-in-out infinite;
+  margin-right: 50px;
+  margin-left: 30px;
+  margin-top: 15%;
+}
+
+.large-heading,
+.small-heading {
+  z-index: 2; /* Ensure it's above the particles */
+  text-align: center;
+}
+
+@keyframes blue-shine {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.hero-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffc107;
+}
+
+.hero-content {
+  text-align: left;
+  padding: 20px;
+  margin-bottom: 200px;
+  font-weight: 500;
+}
+
+.hero-content .info {
+  font-weight: 800;
+  letter-spacing: 10px;
+  font-size: 1.4rem;
+  padding-left: 100px;
+  color: #ffcc33;
+  text-shadow: 0 0 0px #ffcc33, 0 0 0px #ffcc33, 0 0 0px #ffcc33, 0 0 20px #ff9933, 0 0 0px #ff9933, 2px 3px 1px #ff9933;
+}
+
+/* -----------------------HOME DESIGN-----------------------*/
+header {
+  position: absolute;
+  top: 0;
+  z-index: 3; /* Ensure it's above the particles */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Make header background slightly transparent */
+}
+
+.logo img {
+  width: 70px;
+  position: absolute;
+  left: 20px;
+  bottom: 0px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 63px;
+  align-items: center; /* Ensure links are vertically centered */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: #002d72; /* Navy blue from the logo */
+  text-decoration: none;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative; /* Needed for the pseudo-element */
+  padding-bottom: 5px; /* Add some space for the underline */
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0; /* Initially set to 0, will expand on hover */
+  height: 2px; /* Thickness of the underline */
+  background-color: #ffcc33; /* Gold/Yellow for the underline */
+  transition: width 0.4s ease-out; /* Animation for the underline expanding */
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Full width underline on hover */
+}
+
+.nav-links a:not(:hover)::after {
+  width: 0; /* Collapse the underline when not hovered */
+}
+
+.btn-register {
+  background-color: #ffcc33; /* Gold/Yellow from the logo */
+  padding: 10px 20px;
+  color: #002d72; /* Navy blue text */
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  position: absolute;
+  right: 20px;
+  bottom: 9px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.btn-register:hover {
+  background-color: #ffc107; /* Darker gold on hover */
+  transform: scale(1.1); /* Slightly grow the button */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh; /* Ensure content takes up the full height of the viewport */
+  z-index: 2; /* This makes sure it's in front of the particles */
+  padding-top: 50px; /* Prevent overlap with header */
+  background-color: transparent; /* Transparent so particles are visible */
+}
+
+/* Preloader Styles */
+#preloader {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white; /* Preloader background */
+  z-index: 9999; /* On top of everything */
+  transform: translateY(0); /* Initial position */
+  transition: transform 0.5s ease-in-out; /* Smooth transition */
+  overflow: hidden; /* Prevent internal scroll */
+}
+
+/* Main content should be hidden initially and revealed after the preloader moves */
+#main-content {
+  display: flex; /* Hide main content initially */
+  transition: transform 0.5s ease-in-out;
+}
+
+/* When preloader is out, show the main content */
+.show-content {
+  display: block; /* Show the main content */
+  transform: translateY(0); /* Bring main content into view */
+}
+
+/* Pull-up class for preloader */
+.pull-up {
+  transform: translateY(-500%); /* Move preloader out of view upwards */
+}
+
+/* Responsive styling */
+@media (max-width: 480px) {
+  .small-heading {
+    font-size: 2.5rem; /* Further decrease size */
+    margin-left: 131px;
+  }
+
+  .hero-content .info {
+    font-size: 16px; /* Make smaller */
+    padding-left: 0; /* Remove padding */
+  }
+
+  .nav-links {
+    font-size: 14px; /* Smaller text */
+  }
+}
