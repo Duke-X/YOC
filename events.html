@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events - Young Orators Club</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary-color: #012153;
+        --secondary-color: #002d72;
+        --accent-color: #ffc107;
+        --text-color: #333;
+        --white: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Oswald", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        background-color: var(--white);
+        color: var(--primary-color);
+        padding: 0.5rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+      .logo img {
+        width: 60px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 1.5rem;
+      }
+
+      .nav-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Main Section */
+      .main-section {
+        padding: 8rem 0;
+        text-align: center;
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      .main-section h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Events Section */
+      .events-section {
+        padding: 4rem 0;
+      }
+
+      .events-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .event-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(33.333% - 2rem);
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .event-card:hover {
+        transform: scale(1.05);
+      }
+
+      .event-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .event-title {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+      }
+
+      .event-date {
+        margin: 0.5rem 0;
+        color: var(--accent-color);
+      }
+
+      .event-description {
+        font-size: 1rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+      }
+
+      /* Slideshow */
+      .slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Ensure the height is fixed to prevent collapsing */
+}
+
+.slide {
+  position: absolute; /* Keeps all slides in the same place */
+  top: 0;
+  left: 0;
+  width: 100%; /* Adjust based on your layout */
+  height: 100%; /* Adjust based on your layout */
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.active {
+  display: block;
+  position: absolute;
+  opacity: 1;
+  transition: opacity 1.5s ease-in-out;
+}
+      
+      .slide img {
+        width: 100%;
+        height: 350px;
+        display: block; /* Ensure images are visible */
+      }
+      .slideshow-container .slide:first-child {
+        display: block; /* Show the first slide by default */
+      }
+
+      /* Slide Controls */
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+      }
+
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+
+      .prev:hover,
+      .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      /* Dots */
+      .dot-container {
+        text-align: center;
+        padding: 1rem 0;
+      }
+
+      .dot {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+
+      .active-dot {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 1.5rem 0;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+      }
+
+      .footer-section {
+        flex-basis: calc(25% - 1rem);
+        margin-bottom: 1rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: var(--white);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      .contact-left h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+      }
+
+      .input-row {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 48%;
+        margin-bottom: 1rem;
+      }
+
+      input,
+      textarea {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 2px;
+      }
+
+      button {
+        padding: 0.7rem 1.5rem;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      button:hover {
+        background-color: red;
+        transform: scale(1.1); /* Slightly grow the button */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icons a {
+        color: var(--white);
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: var(--accent-color);
+      }
+
+      .copyright {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .events-container {
+          flex-direction: column;
+        }
+
+        .event-card {
+          flex-basis: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">
+          <img src="./images/YOC_Logo-removebg-preview.png" alt="YOC Logo" />
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <!-- <li><a href="#team">Team</a></li> -->
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="main-section">
+      <h1>Our Events</h1>
+      <p>Explore our conducted and upcoming events below!</p>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section container">
+      <div class="events-container">
+        <!-- Event 1 -->
+        <div class="event-card">
+          <div class="slideshow-container" id="slideshow1">
+            <div class="slide" id="event1-slide1">
+              <img src="./images/DSC_0324.JPG" alt="Event 1 Picture 1" />
+            </div>
+            <div class="slide" id="event1-slide2">
+              <img src="./images/DSC_0006.JPG" alt="Event 1 Picture 2" />
+            </div>
+            <div class="slide" id="event1-slide3">
+              <img src="./images/DSC_0147.JPG" alt="Event 1 Picture 3" />
+            </div>
+            <div class="slide" id="event1-slide4">
+              <img src="./images/DSC_0252.JPG" alt="Event 1 Picture 4" />
+            </div>
+            <div class="slide" id="event1-slide5">
+              <img src="./images/DSC_0317.JPG" alt="Event 1 Picture 5" />
+            </div>
+          </div>
+          <div class="dot-container">
+            <span class="dot" onclick="currentSlide(1,1)"></span>
+            <span class="dot" onclick="currentSlide(2,1)"></span>
+            <span class="dot" onclick="currentSlide(3,1)"></span>
+            <span class="dot" onclick="currentSlide(4,1)"></span>
+            <span class="dot" onclick="currentSlide(5,1)"></span>
+          </div>
+          <h3 class="event-title">Incredible India</h3>
+          <p class="event-date">Conducted on: August 23, 2024</p>
+          <p class="event-description">
+            A workshop to enhance public speaking skills for young orators.
+          </p>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+          <div class="slideshow-container" id="slideshow2">
+            <div class="slide" id="event2-slide1">
+              <img src="./images/IMG_0475.jpg" alt="Event 2 Picture 1" />
+            </div>
+            <div class="slide" id="event2-slide2">
+              <img src="./images/IMG_9706.JPG" alt="Event 2 Picture 2" />
+            </div>
+            <div class="slide" id="event2-slide3">
+              <img src="./images/IMG_9769.JPG" alt="Event 2 Picture 3" />
+            </div>
+            <div class="slide" id="event2-slide4">
+              <img src="./images/IMG_9795.JPG" alt="Event 2 Picture 4" />
+            </div>
+            <div class="slide" id="event2-slide5">
+              <img src="./images/poster jam.jpg" alt="Event 2 Picture 5" />
+            </div>
+          </div>
+          <div class="dot-container">
+            <span class="dot" onclick="currentSlide(1,2)"></span>
+            <span class="dot" onclick="currentSlide(2,2)"></span>
+            <span class="dot" onclick="currentSlide(3,2)"></span>
+            <span class="dot" onclick="currentSlide(4,2)"></span>
+            <span class="dot" onclick="currentSlide(5,2)"></span>
+          </div>
+          <!-- <img src="./images/poster jam.jpg" alt="Event 2 Image" /> -->
+          <h3 class="event-title">Just-a-Minute</h3>
+          <p class="event-date">Conducted: September 24, 2024</p>
+          <p class="event-description">
+            An exciting JAM to test communication and critical thinking skills.
+          </p>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card">
+          <div class="slideshow-container" id="slideshow3">
+            <div class="slide" id="event3-slide1">
+              <img
+                src="./images/Tech Event(Verbal Duel) (1).jpg"
+                alt="Event 3 Picture 1"
+              />
+            </div>
+            <!-- <div class="slide" id="event3-slide2">
+      <img src="./images/TechEvent2.jpg" alt="Event 3 Picture 2" />
+    </div>
+    <div class="slide" id="event3-slide3">
+      <img src="./images/TechEvent3.jpg" alt="Event 3 Picture 3" />
+    </div>
+    <div class="slide" id="event3-slide4">
+      <img src="./images/TechEvent4.jpg" alt="Event 3 Picture 4" />
+    </div> -->
+          </div>
+          <div class="dot-container">
+            <span class="dot" onclick="currentSlide(1,3)"></span>
+            <!-- <span class="dot" onclick="currentSlide(2,3)"></span>
+    <span class="dot" onclick="currentSlide(3,3)"></span>
+    <span class="dot" onclick="currentSlide(4,3)"></span> -->
+          </div>
+          <h3 class="event-title">Verbal Duel</h3>
+          <p class="event-date">Upcoming: October 19, 2024</p>
+          <p class="event-description">
+            An exciting debate competition to test communication and critical
+            thinking skills.
+          </p>
+        </div>
+
+        <!-- Add more event cards here -->
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="events.html">Events</a></li>
+              <!-- <li><a href="#team">Team</a></li> -->
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="contact-left">
+            <h3>Send your Query</h3>
+            <form
+            action="https://docs.google.com/forms/d/e/1FAIpQLSc6MJh9b6iMUVCuEZF59TaUR9xm9U_jdovmV2PWyODfQP-1bw/formResponse"
+            method="post"
+            target="_blank"
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                name="entry.1965349758"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                name="entry.112258161"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="tel"
+                name="entry.31888729"
+                placeholder="Your Phone Number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                name="entry.309640569"
+                placeholder="Your Message"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a
+                href="https://www.instagram.com/young.orators?igsh=cXU2YXc2bnF4ajJv"
+                target="_blank"
+                aria-label="Instagram"
+                ><ion-icon name="logo-instagram"></ion-icon
+              ></a>
+              <a
+                href="https://www.linkedin.com/company/young-orators-club/"
+                aria-label="LinkedIn"
+                target="_blank"
+                ><ion-icon name="logo-linkedin"></ion-icon
+              ></a>
+              <a
+                href="mailto: youngoratorsclubcu@gmail.com"
+                aria-label="Mail"
+                target="_blank"
+                ><ion-icon name="mail-outline"></ion-icon
+              ></a>
+              <a href="https://chat.whatsapp.com/D4PXTLudcozEGgE1cJA6jz"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2024 Young Orators Club. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      let slideIndex1 = 0;
+      let slideIndex2 = 0;
+      let slideIndex3 = 0;
+    
+      function showSlides() {
+        let slides1 = document.querySelectorAll("#slideshow1 .slide");
+        let slides2 = document.querySelectorAll("#slideshow2 .slide");
+        let slides3 = document.querySelectorAll("#slideshow3 .slide");
+    
+        // For Event 1 slideshow
+        for (let i = 0; i < slides1.length; i++) {
+          slides1[i].classList.remove("active");  // Remove active class from all slides
+        }
+        slideIndex1++;
+        if (slideIndex1 > slides1.length) {
+          slideIndex1 = 1;
+        }
+        slides1[slideIndex1 - 1].classList.add("active");  // Add active class to the current slide
+    
+        // For Event 2 slideshow
+        for (let i = 0; i < slides2.length; i++) {
+          slides2[i].classList.remove("active");
+        }
+        slideIndex2++;
+        if (slideIndex2 > slides2.length) {
+          slideIndex2 = 1;
+        }
+        slides2[slideIndex2 - 1].classList.add("active");
+    
+        // For Event 3 slideshow
+        for (let i = 0; i < slides3.length; i++) {
+          slides3[i].classList.remove("active");
+        }
+        slideIndex3++;
+        if (slideIndex3 > slides3.length) {
+          slideIndex3 = 1;
+        }
+        slides3[slideIndex3 - 1].classList.add("active");
+    
+        // Repeat every 4 seconds
+        setTimeout(showSlides, 4000);  // Adjust time to 4 seconds for smoother transition
+      }
+    
+      // Initialize the slideshow
+      showSlides();
+    </script>
+    
+  </body>
+</html>

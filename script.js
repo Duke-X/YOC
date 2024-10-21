@@ -1,22 +1,19 @@
-// Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", function () {
-    const preloader = document.getElementById("preloader");
-    const mainContent = document.getElementById("main-content");
-    
-    // Add an event listener for scroll
-    window.addEventListener("scroll", function () {
-      // Get current scroll position
-      let scrollPosition = window.scrollY;
+  const preloader = document.getElementById('preloader');
+  const mainContent = document.getElementById('main-content');
 
-      // If user scrolls down more than 50px, start the animation to move preloader
-      if (scrollPosition > 50) {
-        preloader.style.transform = `translateY(${-scrollPosition}px)`;
-      }
+  // Initially hide the main content
+  mainContent.style.display = 'none';
 
-      // If preloader has scrolled off the screen, show main content
-      if (scrollPosition >= window.innerHeight) {
-        preloader.classList.add("pull-up");
-        mainContent.classList.add("show-content"); // Reveal main content
+  // Add a scroll event listener
+  window.addEventListener('scroll', function () {
+      // Check if the page has been scrolled down
+      if (window.scrollY > 100) { // Added threshold for scrolling
+          preloader.classList.add('pull-up'); // Add class to trigger the transition
+          setTimeout(() => {
+              mainContent.style.display = 'block'; // Show main content after preloader transition
+              preloader.style.display = 'none'; // Hide preloader after transition
+          }, 1000); // Delay to match CSS transition
       }
-    });
   });
+});
